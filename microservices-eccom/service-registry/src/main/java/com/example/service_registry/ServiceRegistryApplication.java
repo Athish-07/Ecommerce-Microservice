@@ -12,6 +12,7 @@ public class ServiceRegistryApplication {
 		SpringApplication.run(ServiceRegistryApplication.class, args);
         System.out.println("Checking entry Author ");
         System.out.println("second checking");
+        System.out.println("third changes");
 	}
 
 }
