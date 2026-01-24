@@ -1,7 +1,10 @@
 package com.example.order_service.service;
 
 import com.example.order_service.client.InventoryClient;
+import com.example.order_service.client.PaymentClient;
 import com.example.order_service.dto.CreateOrderRequest;
+import com.example.order_service.dto.PaymentRequest;
+import com.example.order_service.dto.PaymentResponse;
 import com.example.order_service.entity.Order;
 import com.example.order_service.entity.OrderStatus;
 import com.example.order_service.repository.OrderRepository;
@@ -16,23 +19,30 @@ import java.util.List;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final InventoryClient inventoryClient; // ✅ added
+    private final InventoryClient inventoryClient;
+    private final PaymentClient paymentClient;
 
     public Order createOrder(String userEmail, CreateOrderRequest request) {
 
-        // ✅ Step 1: reduce stock
-        String response = inventoryClient.reduceStock(
+        // 1) Reduce stock using Inventory Service
+        inventoryClient.reduceStock(
                 new InventoryClient.ReduceStockRequest(
                         request.getProductId(),
                         request.getQuantity()
                 )
         );
 
-        if (!response.toLowerCase().contains("reduced")) {
-            throw new RuntimeException("Order failed: " + response);
+        // 2) Call Payment Service
+        PaymentResponse paymentResponse = paymentClient.pay(
+                new PaymentRequest(request.getTotalAmount())
+        );
+
+        if (paymentResponse == null || paymentResponse.getStatus() == null ||
+                !"SUCCESS".equalsIgnoreCase(paymentResponse.getStatus())) {
+            throw new RuntimeException("Payment failed!");
         }
 
-        // ✅ Step 2: create order
+        // 3) Save Order
         Order order = Order.builder()
                 .userEmail(userEmail)
                 .totalAmount(request.getTotalAmount())
