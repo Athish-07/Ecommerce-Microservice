@@ -5,6 +5,8 @@
 *.iws
 out/
 
+.gitignore
+
 # Maven
 target/
 **/target/
