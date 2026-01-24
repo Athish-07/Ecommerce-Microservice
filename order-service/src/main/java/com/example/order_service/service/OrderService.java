@@ -1,8 +1,10 @@
 package com.example.order_service.service;
 
 import com.example.order_service.client.InventoryClient;
+import com.example.order_service.client.NotificationClient;
 import com.example.order_service.client.PaymentClient;
 import com.example.order_service.dto.CreateOrderRequest;
+import com.example.order_service.dto.NotificationRequest;
 import com.example.order_service.dto.PaymentRequest;
 import com.example.order_service.dto.PaymentResponse;
 import com.example.order_service.entity.Order;
@@ -18,9 +20,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
 
+    private final NotificationClient notificationClient;
     private final OrderRepository orderRepository;
     private final InventoryClient inventoryClient;
     private final PaymentClient paymentClient;
+
 
     public Order createOrder(String userEmail, CreateOrderRequest request) {
 
@@ -50,8 +54,16 @@ public class OrderService {
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        return orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
+
+        // 4) Send notification (after order saved)
+        notificationClient.send(
+                new NotificationRequest("Order placed successfully! Order Amount: " + request.getTotalAmount())
+        );
+
+        return savedOrder;
     }
+
 
     public List<Order> getMyOrders(String userEmail) {
         return orderRepository.findByUserEmail(userEmail);

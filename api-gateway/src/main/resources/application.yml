@@ -28,6 +28,12 @@ spring:
           predicates:
             - Path=/payments/**
 
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/notifications/**
+
+
 
 
 eureka:
