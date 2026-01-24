@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6415c541-0d4e-4038-a413-ed53c47d540e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/example/order_service/config/JwtConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/example/order_service/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/example/order_service/controller/OrderController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/example/order_service/dto/CreateOrderRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/example/order_service/entity/Order.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/example/order_service/entity/OrderStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/example/order_service/repository/OrderRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/example/order_service/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/.idea/microservices-eccom.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/api-gateway/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/api-gateway/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/api-gateway/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/api-gateway/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/api-gateway/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/api-gateway/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/api-gateway/src/main/java/com/example/api_gateway/ApiGatewayApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/api-gateway/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/api-gateway/src/test/java/com/example/api_gateway/ApiGatewayApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/api-gateway/untitled/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/api-gateway/untitled/src/main/java/com/myproject/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/src/main/java/com/example/auth_service/AuthServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/src/main/java/com/example/auth_service/controller/AuthController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/src/main/java/com/example/auth_service/dto/AuthResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/src/main/java/com/example/auth_service/dto/LoginRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/src/main/java/com/example/auth_service/dto/RegisterRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/src/main/java/com/example/auth_service/dto/TokenValidationResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/src/main/java/com/example/auth_service/entity/Role.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/src/main/java/com/example/auth_service/entity/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/src/main/java/com/example/auth_service/repository/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/src/main/java/com/example/auth_service/security/JwtService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/src/main/java/com/example/auth_service/security/SecurityBeansConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/src/main/java/com/example/auth_service/security/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/src/main/java/com/example/auth_service/service/AuthService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/auth-service/src/test/java/com/example/auth_service/AuthServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/product-service/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/product-service/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/product-service/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/product-service/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/product-service/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/product-service/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/product-service/src/main/java/com/example/product_service/ProductServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/product-service/src/main/java/com/example/product_service/config/JwtConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/product-service/src/main/java/com/example/product_service/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/product-service/src/main/java/com/example/product_service/controller/ProductController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/product-service/src/main/java/com/example/product_service/dto/ProductRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/product-service/src/main/java/com/example/product_service/entity/Product.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/product-service/src/main/java/com/example/product_service/repository/ProductRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/product-service/src/main/java/com/example/product_service/service/ProductService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/product-service/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/product-service/src/test/java/com/example/product_service/ProductServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/service-registry/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/service-registry/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/service-registry/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/service-registry/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/service-registry/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/service-registry/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/service-registry/src/main/java/com/example/service_registry/ServiceRegistryApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/service-registry/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservices-eccom/service-registry/src/test/java/com/example/service_registry/ServiceRegistryApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-registry/src/main/java/com/example/service_registry/ServiceRegistryApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/service-registry/src/main/java/com/example/service_registry/ServiceRegistryApplication.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="38hGDerL3dYhJBtFoktyPsVR0hB" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ApiGatewayApplication.executor": "Run",
+    "Application.AuthServiceApplication.executor": "Run",
+    "Application.OrderServiceApplication.executor": "Run",
+    "Application.ServiceRegistryApplication.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "dev-branch",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6415c541-0d4e-4038-a413-ed53c47d540e" name="Changes" comment="" />
+      <created>1769244271976</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1769244271976</updated>
+    </task>
+    <servers />
+  </component>
+</project>
