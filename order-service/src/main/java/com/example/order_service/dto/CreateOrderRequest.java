@@ -8,6 +8,13 @@ import lombok.Data;
 public class CreateOrderRequest {
 
     @NotNull
+    private Long productId;
+
+    @NotNull
+    @Min(1)
+    private Integer quantity;
+
+    @NotNull
     @Min(1)
     private Double totalAmount;
 }
