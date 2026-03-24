@@ -1,0 +1,2 @@
+ALTER TABLE orders
+    MODIFY COLUMN total_amount DECIMAL(19, 2) NOT NULL;

@@ -19,6 +19,9 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/actuator/health").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/inventory/add").hasRole("ADMIN")
+                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/inventory/reduce").hasRole("ADMIN")
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/inventory/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2

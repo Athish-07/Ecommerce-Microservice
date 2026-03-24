@@ -5,11 +5,10 @@
 *.iws
 out/
 
-.gitignore
-
 # Maven
 target/
 **/target/
+.m2/
 
 # Gradle
 build/
@@ -17,6 +16,7 @@ build/
 
 # Logs
 *.log
+logs/
 
 # OS files
 .DS_Store

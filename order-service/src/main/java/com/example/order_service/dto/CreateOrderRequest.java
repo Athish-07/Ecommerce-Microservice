@@ -14,7 +14,4 @@ public class CreateOrderRequest {
     @Min(1)
     private Integer quantity;
 
-    @NotNull
-    @Min(1)
-    private Double totalAmount;
 }

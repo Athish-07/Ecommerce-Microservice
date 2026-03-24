@@ -3,36 +3,53 @@ package com.example.inventory_service.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.*;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
+import java.security.KeyFactory;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 import java.util.List;
 
 @Configuration
 public class JwtConfig {
 
-    @Value("${jwt.secret}")
-    private String secret;
+    @Value("${jwt.public-key}")
+    private String publicKeyValue;
 
     @Bean
     public JwtDecoder jwtDecoder() {
-        SecretKey key = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
-        return NimbusJwtDecoder.withSecretKey(key).build();
+        try {
+            byte[] keyBytes = Base64.getDecoder().decode(normalizeKey(publicKeyValue));
+            X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
+            RSAPublicKey publicKey = (RSAPublicKey) KeyFactory.getInstance("RSA").generatePublic(keySpec);
+            return NimbusJwtDecoder.withPublicKey(publicKey).build();
+        } catch (Exception ex) {
+            throw new IllegalStateException("Unable to load JWT public key", ex);
+        }
     }
 
     @Bean
-    public Converter<Jwt, AbstractAuthenticationToken> jwtAuthenticationConverter() {
-        return jwt -> {
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+        converter.setJwtGrantedAuthoritiesConverter(jwt -> {
             String role = jwt.getClaimAsString("role");
-            List<SimpleGrantedAuthority> authorities =
-                    List.of(new SimpleGrantedAuthority("ROLE_" + role));
-            return new JwtAuthenticationToken(jwt, authorities);
-        };
+            if (role == null || role.isBlank()) {
+                return List.of();
+            }
+            return List.<GrantedAuthority>of(new SimpleGrantedAuthority("ROLE_" + role));
+        });
+        return converter;
+    }
+
+    private String normalizeKey(String value) {
+        return value
+                .replace("\\n", "")
+                .replaceAll("-----BEGIN [A-Z ]+-----", "")
+                .replaceAll("-----END [A-Z ]+-----", "")
+                .replaceAll("\\s+", "");
     }
 }

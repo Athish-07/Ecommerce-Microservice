@@ -1,0 +1,6 @@
+CREATE TABLE products (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    price FLOAT(53) NOT NULL,
+    CONSTRAINT pk_products PRIMARY KEY (id)
+);

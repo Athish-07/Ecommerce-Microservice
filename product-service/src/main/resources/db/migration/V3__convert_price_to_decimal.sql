@@ -1,0 +1,2 @@
+ALTER TABLE products
+    MODIFY COLUMN price DECIMAL(19, 2) NOT NULL;

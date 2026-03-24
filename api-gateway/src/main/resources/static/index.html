@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaCart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="brand-block">
+            <p class="brand-kicker">Microservice Commerce</p>
+            <h1>NovaCart</h1>
+            <p class="brand-copy">A cleaner gateway application for auth, catalog, inventory-aware ordering, and admin operations.</p>
+        </div>
+
+        <nav class="sidebar-nav">
+            <button class="nav-link active" data-view="overview" type="button">Overview</button>
+            <button class="nav-link" data-view="architecture" type="button">Architecture</button>
+            <button class="nav-link" data-view="products" type="button">Products</button>
+            <button class="nav-link" data-view="orders" type="button">Orders</button>
+            <button class="nav-link admin-only hidden" data-view="admin" type="button">Admin</button>
+            <button class="nav-link" data-view="account" type="button">Account</button>
+        </nav>
+
+        <section class="sidebar-card">
+            <p class="sidebar-label">Session</p>
+            <h2 id="sessionState">Signed out</h2>
+            <p id="sessionMeta" class="sidebar-copy">Sign in to access the application.</p>
+            <div class="sidebar-actions">
+                <button id="refreshDashboardBtn" class="btn btn-secondary" type="button">Refresh</button>
+            </div>
+        </section>
+    </aside>
+
+    <main class="main-shell">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">Gateway Application</p>
+                <h2 id="pageTitle">Overview</h2>
+            </div>
+            <div class="topbar-status">
+                <span class="pill">Config Server</span>
+                <span class="pill">RabbitMQ</span>
+                <span class="pill">Gateway First</span>
+                <button id="logoutBtn" class="btn btn-ghost topbar-logout" type="button">Logout</button>
+            </div>
+        </header>
+
+        <section class="metrics-grid">
+            <article class="metric-card">
+                <p>Role</p>
+                <strong id="metricRole">Guest</strong>
+            </article>
+            <article class="metric-card">
+                <p>User</p>
+                <strong id="metricEmail">Not logged in</strong>
+            </article>
+            <article class="metric-card">
+                <p>Products</p>
+                <strong id="metricProducts">0</strong>
+            </article>
+            <article class="metric-card">
+                <p>Orders</p>
+                <strong id="metricOrders">0</strong>
+            </article>
+        </section>
+
+        <section id="view-overview" class="view-panel">
+            <div class="hero-card">
+                <div>
+                    <p class="eyebrow">Application Home</p>
+                    <h3>Operate the platform from one place.</h3>
+                    <p class="hero-text">Use the sections below like a normal application: browse products, manage orders, and use admin tools only when your role allows it.</p>
+                </div>
+                <div class="hero-actions">
+                    <button class="btn btn-primary jump-link" data-view="products" type="button">Browse Products</button>
+                    <button class="btn btn-dark jump-link" data-view="orders" type="button">View Orders</button>
+                </div>
+            </div>
+
+            <div class="overview-grid">
+                <article class="content-card">
+                    <div class="card-head">
+                        <div>
+                            <p class="eyebrow">Catalog Snapshot</p>
+                            <h3>Latest Products</h3>
+                        </div>
+                        <button class="btn btn-ghost small jump-link" data-view="products" type="button">Open Products</button>
+                    </div>
+                    <div id="overviewProducts" class="mini-list"></div>
+                </article>
+
+                <article class="content-card">
+                    <div class="card-head">
+                        <div>
+                            <p class="eyebrow">Recent Activity</p>
+                            <h3>Order Snapshot</h3>
+                        </div>
+                        <button class="btn btn-ghost small jump-link" data-view="orders" type="button">Open Orders</button>
+                    </div>
+                    <div id="overviewOrders" class="mini-list"></div>
+                </article>
+            </div>
+        </section>
+
+        <section id="view-architecture" class="view-panel hidden">
+            <article class="content-card architecture-hero">
+                <div>
+                    <p class="eyebrow">System Map</p>
+                    <h3>How the platform works end to end.</h3>
+                    <p class="hero-text">This application runs as a Spring microservice platform. Requests enter through the gateway, configuration is supplied centrally, services register with Eureka, and orders complete through RabbitMQ-driven inventory processing.</p>
+                </div>
+            </article>
+
+            <div class="architecture-board">
+                <article class="content-card architecture-stack">
+                    <div class="card-head">
+                        <p class="eyebrow">Entry Layer</p>
+                        <h3>Client and Platform Entry</h3>
+                    </div>
+                    <div class="architecture-lane">
+                        <div class="arch-node arch-client">
+                            <strong>User UI / Postman</strong>
+                            <span>Clients access the system through the gateway.</span>
+                        </div>
+                        <div class="arch-arrow">→</div>
+                        <div class="arch-node arch-gateway">
+                            <strong>API Gateway</strong>
+                            <span>Routes `/auth`, `/products`, `/orders`, `/inventory`.</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="content-card architecture-stack">
+                    <div class="card-head">
+                        <p class="eyebrow">Control Layer</p>
+                        <h3>Platform Services</h3>
+                    </div>
+                    <div class="architecture-grid">
+                        <div class="arch-node arch-platform">
+                            <strong>Config Server</strong>
+                            <span>Supplies shared and service-specific configuration.</span>
+                        </div>
+                        <div class="arch-node arch-platform">
+                            <strong>Service Registry</strong>
+                            <span>Eureka discovery for runtime service lookup.</span>
+                        </div>
+                        <div class="arch-node arch-platform">
+                            <strong>RabbitMQ</strong>
+                            <span>Async order and inventory messaging backbone.</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="content-card architecture-stack">
+                    <div class="card-head">
+                        <p class="eyebrow">Business Services</p>
+                        <h3>Domain Flow</h3>
+                    </div>
+                    <div class="architecture-services">
+                        <div class="arch-node arch-service">
+                            <strong>Auth Service</strong>
+                            <span>Register, login, RSA JWT issuance, role handling.</span>
+                        </div>
+                        <div class="arch-node arch-service">
+                            <strong>Product Service</strong>
+                            <span>Catalog management and inventory-backed product views.</span>
+                        </div>
+                        <div class="arch-node arch-service">
+                            <strong>Order Service</strong>
+                            <span>Creates orders, calculates totals, publishes stock requests.</span>
+                        </div>
+                        <div class="arch-node arch-service">
+                            <strong>Inventory Service</strong>
+                            <span>Owns stock and processes reservation / reduction logic.</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="content-card architecture-stack">
+                    <div class="card-head">
+                        <p class="eyebrow">Data Stores</p>
+                        <h3>Service-Owned Databases</h3>
+                    </div>
+                    <div class="architecture-grid">
+                        <div class="arch-node arch-db">
+                            <strong>auth_db</strong>
+                            <span>Users and roles.</span>
+                        </div>
+                        <div class="arch-node arch-db">
+                            <strong>product_db</strong>
+                            <span>Catalog data.</span>
+                        </div>
+                        <div class="arch-node arch-db">
+                            <strong>inventory_db</strong>
+                            <span>Stock and processed message tracking.</span>
+                        </div>
+                        <div class="arch-node arch-db">
+                            <strong>order_db</strong>
+                            <span>Orders and outbox events.</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <article class="content-card architecture-flow-card">
+                <div class="card-head">
+                    <p class="eyebrow">Order Flow</p>
+                    <h3>Request Lifecycle</h3>
+                </div>
+                <div class="flow-steps">
+                    <div class="flow-step">
+                        <span class="flow-number">1</span>
+                        <div>
+                            <strong>User authenticates</strong>
+                            <p>Auth Service validates credentials and returns an RSA-signed JWT.</p>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <span class="flow-number">2</span>
+                        <div>
+                            <strong>Gateway routes the request</strong>
+                            <p>The gateway forwards product, inventory, and order requests to discovered services.</p>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <span class="flow-number">3</span>
+                        <div>
+                            <strong>Order Service creates a pending order</strong>
+                            <p>It calculates total price from product data and records an outbox event.</p>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <span class="flow-number">4</span>
+                        <div>
+                            <strong>RabbitMQ carries the stock request</strong>
+                            <p>Inventory Service consumes the message and applies stock rules safely.</p>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <span class="flow-number">5</span>
+                        <div>
+                            <strong>Inventory result updates the order</strong>
+                            <p>The order becomes `CREATED` on success or `CANCELLED` if stock is unavailable.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="content-card architecture-flow-card">
+                <div class="card-head">
+                    <p class="eyebrow">Interactive Diagram</p>
+                    <h3>Application Flow and Tech Stack</h3>
+                </div>
+                <div class="interactive-flow">
+                    <div class="diagram-shell">
+                        <button class="diagram-node active" data-diagram-step="client" type="button">
+                            <span class="diagram-title">Client Layer</span>
+                            <span class="diagram-stack">Browser, Postman</span>
+                        </button>
+                        <span class="diagram-connector">→</span>
+                        <button class="diagram-node" data-diagram-step="gateway" type="button">
+                            <span class="diagram-title">Gateway</span>
+                            <span class="diagram-stack">Spring Cloud Gateway</span>
+                        </button>
+                        <span class="diagram-connector">→</span>
+                        <button class="diagram-node" data-diagram-step="platform" type="button">
+                            <span class="diagram-title">Platform Control</span>
+                            <span class="diagram-stack">Config Server, Eureka</span>
+                        </button>
+                        <span class="diagram-connector">→</span>
+                        <button class="diagram-node" data-diagram-step="services" type="button">
+                            <span class="diagram-title">Business Services</span>
+                            <span class="diagram-stack">Auth, Product, Order, Inventory</span>
+                        </button>
+                        <span class="diagram-connector">→</span>
+                        <button class="diagram-node" data-diagram-step="messaging" type="button">
+                            <span class="diagram-title">Async Messaging</span>
+                            <span class="diagram-stack">RabbitMQ, Outbox</span>
+                        </button>
+                        <span class="diagram-connector">→</span>
+                        <button class="diagram-node" data-diagram-step="data" type="button">
+                            <span class="diagram-title">Persistence</span>
+                            <span class="diagram-stack">MySQL, Flyway, JPA</span>
+                        </button>
+                    </div>
+
+                    <div class="diagram-detail" id="diagramDetail">
+                        <p class="eyebrow">Selected Stage</p>
+                        <h4 id="diagramDetailTitle">Client Layer</h4>
+                        <p id="diagramDetailDescription" class="hero-text">Users interact with the application through the browser UI or Postman. Every request starts here and enters the system through the single public gateway.</p>
+                        <div class="diagram-tags" id="diagramTags">
+                            <span class="diagram-tag">HTML</span>
+                            <span class="diagram-tag">CSS</span>
+                            <span class="diagram-tag">JavaScript</span>
+                            <span class="diagram-tag">Postman</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section id="view-products" class="view-panel hidden">
+            <article class="content-card">
+                <div class="card-head with-actions">
+                    <div>
+                        <p class="eyebrow">Catalog</p>
+                        <h3>Products</h3>
+                    </div>
+                    <div class="pager">
+                        <button id="productsPrevBtn" class="btn btn-ghost small" type="button">Prev</button>
+                        <span id="productsPageLabel">Page 1</span>
+                        <button id="productsNextBtn" class="btn btn-ghost small" type="button">Next</button>
+                    </div>
+                </div>
+                <div id="productsState" class="inline-message muted">Sign in to load products.</div>
+                <div id="productsList" class="card-list"></div>
+            </article>
+        </section>
+
+        <section id="view-orders" class="view-panel hidden">
+            <div class="two-column">
+                <article class="content-card">
+                    <div class="card-head">
+                        <p class="eyebrow">Checkout</p>
+                        <h3>Create Order</h3>
+                    </div>
+                    <form id="orderForm" class="form-stack">
+                        <label>
+                            <span>Product ID</span>
+                            <input id="orderProductId" type="number" min="1" placeholder="4" required>
+                        </label>
+                        <label>
+                            <span>Quantity</span>
+                            <input id="orderQuantity" type="number" min="1" value="1" required>
+                        </label>
+                        <button class="btn btn-primary" type="submit">Place Order</button>
+                    </form>
+                </article>
+
+                <article class="content-card">
+                    <div class="card-head with-actions">
+                        <div>
+                            <p class="eyebrow">History</p>
+                            <h3>Orders</h3>
+                        </div>
+                        <div class="pager">
+                            <button id="ordersPrevBtn" class="btn btn-ghost small" type="button">Prev</button>
+                            <span id="ordersPageLabel">Page 1</span>
+                            <button id="ordersNextBtn" class="btn btn-ghost small" type="button">Next</button>
+                        </div>
+                    </div>
+                    <div id="ordersState" class="inline-message muted">Sign in to load orders.</div>
+                    <div id="ordersList" class="card-list"></div>
+                </article>
+            </div>
+        </section>
+
+        <section id="view-admin" class="view-panel hidden">
+            <article class="content-card">
+                <div class="card-head">
+                    <p class="eyebrow">Admin</p>
+                    <h3>Create Product</h3>
+                </div>
+                <form id="productForm" class="form-grid">
+                    <label>
+                        <span>Name</span>
+                        <input id="productName" type="text" placeholder="Nova Speaker" required>
+                    </label>
+                    <label>
+                        <span>Price</span>
+                        <input id="productPrice" type="number" min="1" step="0.01" placeholder="1999" required>
+                    </label>
+                    <label class="full-width">
+                        <span>Description</span>
+                        <input id="productDescription" type="text" placeholder="Describe the product for admins and storefront users">
+                    </label>
+                    <label>
+                        <span>Stock</span>
+                        <input id="productStock" type="number" min="0" placeholder="10" required>
+                    </label>
+                    <div class="form-actions">
+                        <button class="btn btn-dark" type="submit">Publish Product</button>
+                    </div>
+                </form>
+            </article>
+        </section>
+
+        <section id="view-account" class="view-panel hidden">
+            <div class="two-column">
+                <article class="content-card">
+                    <div class="card-head">
+                        <p class="eyebrow">Access</p>
+                        <h3>Login</h3>
+                    </div>
+                    <form id="loginForm" class="form-stack">
+                        <label>
+                            <span>Email</span>
+                            <input id="loginEmail" type="email" placeholder="admin@example.com" required>
+                        </label>
+                        <label>
+                            <span>Password</span>
+                            <input id="loginPassword" type="password" placeholder="Password" required>
+                        </label>
+                        <button class="btn btn-primary" type="submit">Login</button>
+                    </form>
+                </article>
+
+                <article class="content-card accent-card">
+                    <div class="card-head">
+                        <p class="eyebrow">Onboard</p>
+                        <h3>Register</h3>
+                    </div>
+                    <form id="registerForm" class="form-stack">
+                        <label>
+                            <span>Full Name</span>
+                            <input id="registerFullName" type="text" placeholder="Test User" required>
+                        </label>
+                        <label>
+                            <span>Email</span>
+                            <input id="registerEmail" type="email" placeholder="user@example.com" required>
+                        </label>
+                        <label>
+                            <span>Password</span>
+                            <input id="registerPassword" type="password" placeholder="Password@123" required>
+                        </label>
+                        <button class="btn btn-dark" type="submit">Create Account</button>
+                    </form>
+                </article>
+            </div>
+
+            <article class="content-card">
+                <div class="card-head">
+                    <p class="eyebrow">Session Control</p>
+                    <h3>Logout</h3>
+                </div>
+                <p class="hero-text">Use logout when you want to clear the saved token from this browser and return to a signed-out state.</p>
+                <button id="accountLogoutBtn" class="btn btn-dark" type="button">Logout</button>
+            </article>
+        </section>
+    </main>
+</div>
+
+<template id="productCardTemplate">
+    <article class="record-card product-card">
+        <div class="record-top">
+            <div>
+                <p class="record-id"></p>
+                <h4 class="record-title"></h4>
+            </div>
+            <span class="chip chip-stock"></span>
+        </div>
+        <p class="record-price"></p>
+    </article>
+</template>
+
+<template id="orderCardTemplate">
+    <article class="record-card order-card">
+        <div class="record-top">
+            <div>
+                <p class="record-id"></p>
+                <h4 class="record-title"></h4>
+            </div>
+            <span class="chip chip-status"></span>
+        </div>
+        <p class="record-meta"></p>
+        <p class="record-price"></p>
+    </article>
+</template>
+
+<script src="/app.js" defer></script>
+</body>
+</html>

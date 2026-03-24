@@ -1,0 +1,42 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: auth-service
+  datasource:
+    url: ${AUTH_DB_URL:jdbc:mysql://localhost:3306/auth_db?createDatabaseIfNotExist=true}
+    username: ${AUTH_DB_USERNAME:root}
+    password: ${AUTH_DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+jwt:
+  private-key: ${JWT_PRIVATE_KEY}
+  public-key: ${JWT_PUBLIC_KEY}
+  expiration: ${JWT_EXPIRATION:3600000}
+
+auth:
+  cookie:
+    secure: ${AUTH_COOKIE_SECURE:false}
+  bootstrap:
+    admin:
+      enabled: ${AUTH_BOOTSTRAP_ADMIN_ENABLED:false}
+      full-name: ${AUTH_BOOTSTRAP_ADMIN_FULL_NAME:}
+      email: ${AUTH_BOOTSTRAP_ADMIN_EMAIL:}
+      password: ${AUTH_BOOTSTRAP_ADMIN_PASSWORD:}
+
+logging:
+  file:
+    name: ${LOG_ROOT:../logs}/auth-service.log
+  logback:
+    rollingpolicy:
+      file-name-pattern: ${LOG_ROOT:../logs}/auth-service.%d{yyyy-MM-dd}.%i.log.gz
+      max-file-size: 10MB
+      max-history: 14
+      total-size-cap: 1GB
