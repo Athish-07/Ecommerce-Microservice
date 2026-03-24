@@ -286,6 +286,9 @@ From the project root:
 mvn -f pom.xml clean install
 ```
 
-## License
 
-Add your preferred license here before publishing publicly.
+📄 License
+MIT License — free to use, modify, and distribute.
+
+👨‍💻 Author
+Built with ❤️ by Athish
